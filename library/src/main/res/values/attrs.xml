@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ExpandableContainer">
+        <attr name="expandableShadowHeight" format="dimension"/>
+        <attr name="expandableCollapsedHeight" format="dimension"/>
+        <attr name="expandableDuration" format="integer"/>
+        <attr name="expandableExpandedByDefault" format="boolean"/>
+    </declare-styleable>
+
+</resources>
