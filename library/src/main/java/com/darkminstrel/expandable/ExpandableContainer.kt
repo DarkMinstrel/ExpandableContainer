@@ -22,6 +22,8 @@ class ExpandableContainer @JvmOverloads constructor(
     private var collapsedHeight = DEFAULT_COLLAPSED_HEIGHT_DP * density
     private var animationDuration = DEFAULT_DURATION
     private var expanded = DEFAULT_EXPANDED
+    private var contentFits = true
+    private var onContentFitsChangeListener:((contentFits: Boolean)->Unit)? = null
 
     private var childDesiredHeight = 0
     private var oldChildDesiredHeight = 0
@@ -51,7 +53,7 @@ class ExpandableContainer @JvmOverloads constructor(
 
     fun isExpanded():Boolean = expanded
 
-    fun setExpanded(expanded:Boolean){
+    fun setExpanded(expanded: Boolean){
         this.expanded = expanded
         animator?.cancel()
         animator = null
@@ -70,6 +72,12 @@ class ExpandableContainer @JvmOverloads constructor(
         setExpanded(!expanded)
     }
 
+    fun contentFits() = contentFits
+
+    fun setOnContentFitsChangeListener(listener: ((contentFits: Boolean) -> Unit)?){
+        this.onContentFitsChangeListener = listener
+    }
+
     private fun getChild():View? = if(childCount==1) getChildAt(0) else null
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -81,16 +89,21 @@ class ExpandableContainer @JvmOverloads constructor(
             animator?.cancel()
             animator = null
             oldChildDesiredHeight = childDesiredHeight
+            contentFits = childDesiredHeight <= collapsedHeight
+            onContentFitsChangeListener?.invoke(contentFits)
         }
+
         animator?.let{
             val newHeight = it.animatedValue as Int
             if(it.animatedFraction==1f) animator = null
-            setMeasuredDimension(widthMeasureSpec, newHeight)
+            super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(newHeight, MeasureSpec.EXACTLY))
         } ?: run{
             val newHeight = if (childDesiredHeight < collapsedHeight || expanded) childDesiredHeight else collapsedHeight.toInt()
-            setMeasuredDimension(widthMeasureSpec, newHeight)
+            super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(newHeight, MeasureSpec.EXACTLY))
         }
+
     }
+
 
     private fun hasShadow():Boolean {
         return childDesiredHeight > height

@@ -7,33 +7,21 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/toggle"
-            />
-    </LinearLayout>
-
-
     <com.darkminstrel.expandable.ExpandableContainer
-        android:id="@+id/container"
+        android:id="@+id/containerWithImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:expandableExpandedByDefault="false"
         app:expandableDuration="200"
         app:expandableShadowHeight="16dp"
-        app:expandableCollapsedHeight="128dp">
+        app:expandableCollapsedHeight="70dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -53,5 +41,66 @@
 
         </LinearLayout>
     </com.darkminstrel.expandable.ExpandableContainer>
+
+    <Button
+        android:id="@+id/btn_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="16dp"
+        android:text="@string/toggle"
+        />
+
+    <com.darkminstrel.expandable.ExpandableContainer
+        android:id="@+id/containerWithText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:expandableExpandedByDefault="false"
+        app:expandableDuration="200"
+        app:expandableShadowHeight="16dp"
+        app:expandableCollapsedHeight="70dp">
+
+        <TextView
+            android:id="@+id/textDynamic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/test_string"/>
+    </com.darkminstrel.expandable.ExpandableContainer>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:animateLayoutChanges="true">
+
+        <Button
+            android:id="@+id/btn_more_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/more_text"
+            />
+
+        <Button
+            android:id="@+id/btn_less_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/btn_more_text"
+            android:text="@string/less_text"
+            />
+
+        <Button
+            android:id="@+id/btn_toggle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/toggle"
+            />
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>
