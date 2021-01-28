@@ -86,7 +86,7 @@
             android:id="@+id/btn_less_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/btn_more_text"
             android:text="@string/less_text"
             />
